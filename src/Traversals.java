@@ -40,7 +40,13 @@ public class Traversals {
    * @return a post-order traversal string, or an empty string if the tree is null
    */
   public static <T> String buildPostOrderString(TreeNode<T> node) {
-    return null;
+    if(node == null) return "";
+
+    String left = buildPostOrderString(node.left);
+    String right = buildPostOrderString(node.right);
+    String currentValue = node.value.toString();
+    
+    return left + right + currentValue;
   }
 
   /**
@@ -52,7 +58,17 @@ public class Traversals {
    * @return a list of node values in a top-to-bottom order, or an empty list if the tree is null
    */
   public static <T> List<T> collectLevelOrderValues(TreeNode<T> node) {
-    return null;
+    List<T> results = new LinkedList<>();
+    Queue<TreeNode<T>> queue = new LinkedList<>();
+    if(node == null) return results;
+    queue.add(node);
+    while(!queue.isEmpty()) {
+      TreeNode<T> currentNode = queue.remove();
+      results.add(currentNode.value);
+      if(currentNode.left != null) queue.add(currentNode.left);
+      if(currentNode.right != null) queue.add(currentNode.right);
+    }
+    return results;
   }
 
   /**
